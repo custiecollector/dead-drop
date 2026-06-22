@@ -1,0 +1,55 @@
+plugins { id 'com.android.application' }
+
+import java.util.Properties
+
+def localProps = new Properties()
+def localPropsFile = rootProject.file('local.properties')
+if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { localProps.load(it) }
+}
+
+def releaseStoreFile = localProps.getProperty('DEADDROP_RELEASE_STORE_FILE', '').trim()
+def releaseStorePassword = localProps.getProperty('DEADDROP_RELEASE_STORE_PASSWORD', '').trim()
+def releaseKeyAlias = localProps.getProperty('DEADDROP_RELEASE_KEY_ALIAS', '').trim()
+def releaseKeyPassword = localProps.getProperty('DEADDROP_RELEASE_KEY_PASSWORD', '').trim()
+def releaseSigningConfigured = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it != null && !it.isEmpty() }
+
+android {
+    namespace 'org.deaddrop.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'org.deaddrop.app'
+        minSdk 26
+        targetSdk 35
+        versionCode 22
+        versionName '0.1.12'
+    }
+
+    signingConfigs {
+        releaseSigning {
+            if (releaseSigningConfigured) {
+                storeFile rootProject.file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // Release signing is local-only. Public clones can build unsigned release
+            // artifacts unless they provide their own local signing settings.
+            if (releaseSigningConfigured) {
+                signingConfig signingConfigs.releaseSigning
+            }
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.google.zxing:core:3.5.3'
+}

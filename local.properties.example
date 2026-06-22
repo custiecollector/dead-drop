@@ -1,0 +1,14 @@
+# DeadDrop local Android build settings.
+# Copy to local.properties and adjust for your machine.
+# Do not commit local.properties or signing keys.
+
+# Android SDK path.
+sdk.dir=/path/to/android-sdk
+
+# Release signing is optional and local-only.
+# If you need signed release builds, add your own keystore settings in local.properties only.
+#
+# DEADDROP_RELEASE_STORE_FILE=/path/to/your-release-keystore-file
+# DEADDROP_RELEASE_STORE_PASSWORD=change_me_store_password
+# DEADDROP_RELEASE_KEY_ALIAS=deaddrop-release
+# DEADDROP_RELEASE_KEY_PASSWORD=change_me_key_password

@@ -1,0 +1,34 @@
+# Gradle / Android build outputs
+.gradle/
+build/
+app/build/
+*/build/
+
+# Local machine configuration and signing secrets
+local.properties
+keystore/
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+
+# Packaged artifacts
+*.apk
+*.aab
+*.jar
+*.zip
+*.tar.gz
+*.exe
+*.msi
+
+# IDE / OS files
+*.iml
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp

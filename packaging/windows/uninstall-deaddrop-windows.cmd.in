@@ -1,0 +1,6 @@
+@echo off
+setlocal
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ErrorActionPreference='SilentlyContinue'; $root=Join-Path $env:LOCALAPPDATA 'DeadDrop'; $start=Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\DeadDrop'; $desktop=[Environment]::GetFolderPath('DesktopDirectory'); Remove-Item (Join-Path $start 'DeadDrop Desktop.lnk') -Force; Remove-Item (Join-Path $start 'Uninstall DeadDrop Desktop.lnk') -Force; if ((Test-Path $start) -and -not (Get-ChildItem $start)) { Remove-Item $start -Force }; Remove-Item (Join-Path $desktop 'DeadDrop Desktop.lnk') -Force; if (Test-Path $root) { Remove-Item $root -Recurse -Force }; Write-Host 'DeadDrop Desktop application files removed.'; Write-Host 'Vault data was not removed: %USERPROFILE%\.config\deaddrop-desktop\vault.ddv'"
+echo.
+echo If this window closes too quickly, uninstall is still complete unless errors were printed above.
+pause
